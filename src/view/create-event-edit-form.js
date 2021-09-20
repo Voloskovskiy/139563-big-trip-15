@@ -1,19 +1,22 @@
 import dayjs from 'dayjs';
+import {createElement} from './../utils.js';
 import {createSiteDetailInfoFormTemplate} from './create-destination-part-event-edit-form.js';
 
-export const createSiteEventEditFormTemplate = (tripEvent = {}) => {
-  const {
-    dateFrom = null,
-    dateTo = null,
-    destination = {
-      description: '',
-      name: '',
-      photos: null,
-    },
-    basePrice = '',
-    offers = null,
-    type = 'taxi',
-  } = tripEvent;
+const BLANK_EVENT = {
+  dateFrom: null,
+  dateTo: null,
+  destination: {
+    description: '',
+    name: '',
+    photos: null,
+  },
+  basePrice: '',
+  offers: null,
+  type: 'taxi',
+};
+
+const createEventEditFormTemplate = (tripEvent) => {
+  const {type, dateFrom, dateTo, basePrice, destination, offers} = tripEvent;
 
   return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
@@ -86,7 +89,7 @@ export const createSiteEventEditFormTemplate = (tripEvent = {}) => {
           <label class="event__label  event__type-output" for="event-destination-1">
           ${type}
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination.name}" list="destination-list-1">
           <datalist id="destination-list-1">
             <option value="Amsterdam"></option>
             <option value="Geneva"></option>
@@ -120,3 +123,26 @@ export const createSiteEventEditFormTemplate = (tripEvent = {}) => {
     </form>
   </li>`
 };
+
+export default class EventEditForm {
+  constructor(event = BLANK_EVENT) {
+    this._event = event;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventEditFormTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

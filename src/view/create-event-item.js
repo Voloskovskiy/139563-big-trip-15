@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import {createElement} from './../utils.js';
 
-export const createSiteEventItemTemplate = (tripEvent) => {
+const createEventItemTemplate = (tripEvent) => {
   const {dateFrom, dateTo, isFavorite, destination, basePrice, offers, type} = tripEvent;
   const diffDate = dayjs(dateTo).diff(dateFrom);
   const isfavoriteClass = isFavorite
@@ -49,4 +50,27 @@ export const createSiteEventItemTemplate = (tripEvent) => {
       </button>
     </div>
   </li>`
+}
+
+export default class EventItem {
+  constructor(event) {
+    this._event = event;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventItemTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
 }

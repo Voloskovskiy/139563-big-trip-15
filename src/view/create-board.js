@@ -1,14 +1,14 @@
 import {createElement} from './../utils.js';
 
-const createEventListEmptyTemplate = () => (`<p class="trip-events__msg">Click New Event to create your first point</p>`);
+const createBoardTemplate = () => '<section class="trip-events"><h2 class="visually-hidden">Trip events</h2></section>';
 
-export default class EmptyEventList {
+export default class EventBoard {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return createEventListEmptyTemplate();
+    return createBoardTemplate();
   }
 
   getElement() {
