@@ -6,6 +6,7 @@ import {createSiteSortingTemplate} from './view/site-routes-sorting.js'
 import {createSiteEventListTemplate} from './view/create-event-list.js'
 import {createSiteEventEditFormTemplate} from './view/create-event-edit-form.js'
 import {createSiteEventItemTemplate} from './view/create-event-item.js'
+
 import {generateEvent} from './mock/trip-event.js';
 
 const EVENT_COUNT = 15;
@@ -13,6 +14,7 @@ const EVENT_COUNT = 15;
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
+
 const tripEvent = new Array(EVENT_COUNT).fill().map(generateEvent);
 
 const siteBody = document.querySelector('.page-body');
@@ -36,6 +38,7 @@ const siteEventMainContainer = siteBody.querySelector('.trip-events');
 render(siteEventMainContainer, createSiteEventListTemplate(), 'beforeend');
 
 const siteEventList = siteBody.querySelector('.trip-events__list');
+
 render(siteEventList, createSiteEventEditFormTemplate(), 'beforeend');
 
 for(let i = 1; i < EVENT_COUNT; i++){
