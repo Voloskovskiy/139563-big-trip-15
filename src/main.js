@@ -1,4 +1,4 @@
-import EventBoardView from './view/create-board'
+import EventBoardView from './view/create-board.js'
 import SiteMenuView from './view/site-menu.js';
 import EmptyEventListView from './view/create-event-list-empty.js';
 import RouteInfoView from './view/site-route-info.js'
