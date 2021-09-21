@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import {EVENT_TYPES} from './../const.js';
-import {getRandomInteger} from './../utils.js';
+import {getRandomInteger} from './../common.js';
 
 const generateDate = (dateStart = dayjs()) => {
   return dayjs(dateStart).add(getRandomInteger(500,1000), 'minute').toDate();

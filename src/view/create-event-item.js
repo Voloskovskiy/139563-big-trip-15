@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {createElement} from './../utils.js';
+import AbstractView from './abstract.js';
 
 const createEventItemTemplate = (tripEvent) => {
   const {dateFrom, dateTo, isFavorite, destination, basePrice, offers, type} = tripEvent;
@@ -52,25 +52,25 @@ const createEventItemTemplate = (tripEvent) => {
   </li>`
 }
 
-export default class EventItem {
+export default class EventItem extends AbstractView{
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
+
+    this._clickHandler = this._clickHandler.bind(this);
   }
 
   getTemplate() {
     return createEventItemTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().addEventListener('click', this._clickHandler);
   }
 }

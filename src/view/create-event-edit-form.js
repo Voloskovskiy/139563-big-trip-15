@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {createElement} from './../utils.js';
+import AbstractView from './abstract.js';
 import {createSiteDetailInfoFormTemplate} from './create-destination-part-event-edit-form.js';
 
 const BLANK_EVENT = {
@@ -124,25 +124,47 @@ const createEventEditFormTemplate = (tripEvent) => {
   </li>`
 };
 
-export default class EventEditForm {
+export default class EventEditForm extends AbstractView{
   constructor(event = BLANK_EVENT) {
+    super();
     this._event = event;
-    this._element = null;
+
+    this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._editClickHandler = this._editClickHandler.bind(this);
+    this._escHandler = this._escHandler.bind(this);
   }
 
   getTemplate() {
     return createEventEditFormTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._callback.formSubmit();
   }
 
-  removeElement() {
-    this._element = null;
+  setEditFormSubmitHandler(callback) {
+    this._callback.formSubmit = callback;
+    this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
+  }
+
+  setEditClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
+  }
+
+  _escHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
+  }
+
+  setEditEscHandler(callback) {
+    this._callback.esc = callback;
+    this.getElement().addEventListener('keydown', this._escHandler);
   }
 }
