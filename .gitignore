@@ -12,9 +12,5 @@ Thumbs.db
 node_modules/
 
 # Собранные файлы (допишите самостоятельно)
-<<<<<<< HEAD
- public/bundle.js
-=======
 public/bundle.js
 public/bundle.js.map
->>>>>>> 8f3e038f056994b7ac421141d343a255a9ed18c0
